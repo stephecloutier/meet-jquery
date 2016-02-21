@@ -1,0 +1,14 @@
+{
+  "name": "meet-jquery",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Base exercise to discover AJAX with jQuery",
+  "author": "Pierre-Antoine \"leny\" Delnatte <info@flatland.be>",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-cowsay": "^0.1.1",
+    "grunt-eslint": "^17.3.2"
+  }
+}
