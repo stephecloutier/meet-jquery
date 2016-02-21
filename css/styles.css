@@ -1,0 +1,42 @@
+/* ria.exos.flatland.be - Notes de cours en ligne pour le cours de RIA - Applications Internet Riches
+ * CSS Document - /jquery/lib/styles/styles.css
+ * coded by Pierre-Antoine Delnatte
+ * september 2012
+ */
+
+@import url( "bootstrap.css" );
+
+html {
+	background: red url( img/bcg.jpg ) top center no-repeat fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	min-height: 100%;
+	height: auto;
+}
+
+body {
+	background: transparent;
+}
+
+#wrapper {
+	background: white;
+	margin: 20px auto;
+	padding: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0 0 20px black;
+	-box-box-shadow: 0 0 20px black;
+	box-shadow: 0 0 20px black;
+}
+
+article figure { position: relative; text-align: center; }
+article figure img { margin-bottom: 3px; }
+article figure figcaption { margin: 0 auto; display: inline-block; }
+
+footer {
+	border-top: 1px solid silver;
+	padding: 15px 0 0;
+	text-align: center;
+}
