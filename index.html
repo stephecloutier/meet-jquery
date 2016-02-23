@@ -38,24 +38,24 @@
                             <li class="alert alert-error">Ce commentaire a été modéré.</li>
                         </ol>
                     </div>
-                    <form action="javascript:void(0);" method="post" id="add_comment" class="form-horizontal">
+                    <form action="http://google.be" method="post" id="add_comment" class="form-horizontal">
                         <legend>Ajouter un commentaire</legend>
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Email</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Email" />
+                                <input type="text" name="email" id="inputEmail" placeholder="Email" />
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="inputName">Nom</label>
                             <div class="controls">
-                                <input type="text" id="inputName" placeholder="Nom" />
+                                <input type="text" name="name" id="inputName" placeholder="Nom" />
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="inputComment">Votre commentaire</label>
                             <div class="controls">
-                                <textarea id="inputComment" rows="3"></textarea>
+                                <textarea name="comment" id="inputComment" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="form-actions">
@@ -134,5 +134,8 @@
                 <p>Ce blog, fictif et statique, est un support d'exercice pour le cours de <a href="https://github.com/hepl-mmi/meet-jquery" rel="external">MMI 2016 de l'HEPL</a>.</p>
             </footer>
         </div>
+
+        <script src="vendors/jquery-2.2.1.min.js"></script>
+        <script src="scripts/scripts.js"></script>
     </body>
 </html>

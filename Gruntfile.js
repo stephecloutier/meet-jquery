@@ -41,7 +41,7 @@ module.exports = function( grunt ) {
         // eslint
         "eslint": {
             "options": {
-                "configFile": "eslintrc.json"
+                "configFile": ".eslintrc.json"
             },
             "scripts": [ "scripts/**/*.js" ]
         },
