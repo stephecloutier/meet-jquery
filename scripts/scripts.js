@@ -23,26 +23,26 @@
             bAllIsOk = true,
             rCheckEmail = /^[a-z0-9-_\.]+@[a-z0-9-_\.]+\.[a-z]{2,3}$/i;
 
-        // --- TODO: remove all .error from .control-group
+        $( ".control-group" ).removeClass( "error" );
 
         // 1. email should be an email
         sGivenEmail = $self.find( "input[name=\"email\"]" ).val().trim();
         if ( rCheckEmail.test( sGivenEmail ) === false ) {
-            console.error( "Invalid email" ); // TODO: add .error to email .control-group
+            $self.find( "input[name=\"email\"]" ).parents( ".control-group" ).addClass( "error" );
             bAllIsOk = false;
         }
 
         // 2. name isn't empty
         sGivenName = $self.find( "input[name=\"name\"]" ).val().trim();
         if ( sGivenName === "" ) {
-            console.error( "Invalid name" ); // TODO: add .error to name .control-group
+            $self.find( "input[name=\"name\"]" ).parents( ".control-group" ).addClass( "error" );
             bAllIsOk = false;
         }
 
         // 3. comment isn't empty and <= 140 chars
         sGivenComment = $self.find( "textarea[name=\"comment\"]" ).val().trim();
         if ( sGivenComment === "" || sGivenComment.length > 140 ) {
-            console.error( "Invalid comment" );  // TODO: add .error to comment .control-group
+            $self.find( "textarea[name=\"comment\"]" ).parents( ".control-group" ).addClass( "error" );
             bAllIsOk = false;
         }
 
