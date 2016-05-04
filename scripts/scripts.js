@@ -1,6 +1,6 @@
 /* hepl-mmi/meet-jquery
  *
- * /scripts/scripts.js - Main scripts (with jquery)
+ * /scripts/scripts.js - Main scripts (without jquery)
  *
  * coded by leny@flatLand!
  * started at 23/02/2016
@@ -10,107 +10,75 @@
 
     "use strict";
 
-    var fTabLinkIsClicked,
-        fFormIsSubmitted,
+    var fPageIsLoaded,
+        fExternalLinkIsClicked,
+        fTabLinkIsClicked,
         $tabLinks,
         $tabPanes;
 
-    fFormIsSubmitted = function( oEvent ) {
-        var $self = $( this ),
-            sGivenEmail,
-            sGivenName,
-            sGivenComment,
-            bAllIsOk = true,
-            rCheckEmail = /^[a-z0-9-_\.]+@[a-z0-9-_\.]+\.[a-z]{2,3}$/i;
+    fExternalLinkIsClicked = function( oEvent ) {
+        var sURL;
 
-        $( ".control-group" ).removeClass( "error" );
+        oEvent.preventDefault();
 
-        // 1. email should be an email
-        sGivenEmail = $self.find( "input[name=\"email\"]" ).val().trim();
-        if ( rCheckEmail.test( sGivenEmail ) === false ) {
-            $self.find( "input[name=\"email\"]" ).parents( ".control-group" ).addClass( "error" );
-            bAllIsOk = false;
-        }
+        sURL = this.getAttribute( "href" );
 
-        // 2. name isn't empty
-        sGivenName = $self.find( "input[name=\"name\"]" ).val().trim();
-        if ( sGivenName === "" ) {
-            $self.find( "input[name=\"name\"]" ).parents( ".control-group" ).addClass( "error" );
-            bAllIsOk = false;
-        }
-
-        // 3. comment isn't empty and <= 140 chars
-        sGivenComment = $self.find( "textarea[name=\"comment\"]" ).val().trim();
-        if ( sGivenComment === "" || sGivenComment.length > 140 ) {
-            $self.find( "textarea[name=\"comment\"]" ).parents( ".control-group" ).addClass( "error" );
-            bAllIsOk = false;
-        }
-
-        return bAllIsOk;
+        window.open( sURL, "_new" );
     };
 
     fTabLinkIsClicked = function( oEvent ) {
-        var $self = $( this );
+        var sTargetPaneID,
+            i;
 
         oEvent.preventDefault();
 
         // 0. do nothing if current link is already active
-        if ( $self.parent().hasClass( "active" ) ) {
+        if ( this.parentNode.className.indexOf( "active" ) > -1 ) {
             return;
         }
 
         // 1. remove active class on pane
+        for ( i = 0 ; i < $tabPanes.length ; i++ ) {
+            if ( $tabPanes[ i ].className.indexOf( "active" ) > -1 ) {
+                $tabPanes[ i ].className = "tab-pane";
+            }
+        }
+
         // 2. get target pane
+        sTargetPaneID = this.getAttribute( "data-tab-target" );
+
         // 3. add active class on target pane
-        $tabPanes // all tab panes
-            .filter( ".active" ) // only the .active class
-                .removeClass( "active" )
-                .end()
-            .filter( "#" + $self.data( "tab-target" ) ) // only one with target id
-                .addClass( "active" );
+        document.getElementById( sTargetPaneID ).className = "tab-pane active";
 
         // 4. remove active class from link
+        for ( i = 0 ; i < $tabLinks.length ; i++ ) {
+            $tabLinks[ i ].parentNode.className = $tabLinks[ i ].parentNode.className.replace( "active", "" );
+        }
+
         // 5. add active class on current link
-        $tabLinks
-            .parent()
-                .filter( ".active" )
-                    .removeClass( "active" )
-                    .end()
-                .has( $self )
-                    .addClass( "active" );
+        this.parentNode.className = "active";
     };
 
-    $( function() {
+    fPageIsLoaded = function() {
+        var $externalLinks,
+            i;
 
-        // external
-        $( "a[rel=\"external\"]" ).attr( "target", "_new" );
+        // external links
+        $externalLinks = document.querySelectorAll( "a[rel=\"external\"]" );
 
-        // tabs
-        $tabPanes = $( ".tab-pane" );
-        ( $tabLinks = $( ".nav-tabs li a" ) ).on( "click", fTabLinkIsClicked );
+        for ( i = 0 ; i < $externalLinks.length ; i++ ) {
+            $externalLinks[ i ].addEventListener( "click", fExternalLinkIsClicked );
+        }
 
-        $( ".page-header h1 small" ).on( "click", function() {
-            $( this ).html( "Un blog en <strong>mousse</strong>" );
-        } );
+        // tab panes
+        $tabLinks = document.querySelectorAll( ".nav-tabs li a" );
+        $tabPanes = document.querySelectorAll( ".tab-pane" );
 
-        $( "#trombino" )
-            .find( "figure" )
-                .hide()
-                .first()
-                    .fadeIn( 2500 )
-                    .end()
-                .end()
-            .find( "h3" )
-                .on( "click", function() {
-                    $( "#trombino figure:first" )
-                        .css( "position", "relative" )
-                        .animate( {
-                            "left": -250
-                        }, 2500 );
-                } );
+        for ( i = 0 ; i < $tabLinks.length ; i++ ) {
+            $tabLinks[ i ].addEventListener( "click", fTabLinkIsClicked );
+        }
+    };
 
-        $( "form" ).on( "submit", fFormIsSubmitted );
-
-    } );
+    window.addEventListener( "load", fPageIsLoaded );
 
 } )();
