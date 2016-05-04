@@ -12,6 +12,15 @@
 
 Ces fichiers servent de base d'exercice pour le cours de découverte de jQuery.
 
+## Consignes
+
+Dans le cadre de cet exercice, nous allons travailler en deux étapes. Premièrement, nous allons faire les deux premiers éléments de l'exercice en utilisant uniquement les API du DOM, et ensuite, nous intégrerons jQuery pour refaire ces deux éléments et les deux suivants.
+
+1. Certains liens ont un attribut `rel` dont la valeur est "*external*" : ces liens devraient s'ouvrir dans une nouvelle fenêtre (_je sais_, c'est pas le plus top à faire niveau accessibilité, mais c'est pour l'exercice).
+2. La page comprend une petite structure html figurant des **onglets**. À nous de rendre ces onglets fonctionnels pour qu'en cliquant sur un onglet, ce soit le bon contenu qui s'affiche.
+3. Dans la colonne de droite, nous avons une série de photos, nommée _trombinoscope_. D'abord, nous allons masquer toutes ces photos, **sauf la première**. Ensuite, lors d'un clic sur le titre de la section trombinoscope, nous animerons le déplacement l'image de 250 pixels vers la gauche (ça n'a aucune utilité - encore une fois, _c'est un exercice_).
+4. Il existe dans la page un petit formulaire d'ajout de commentaires. Nous allons intercepté son _submit_, et vérifier que chaque champs a bien été rempli avant de permettre la soumission. Nous en profiterons pour tester sommairement la validité de l'email entré.
+
 * * *
 
 ## Ressources credits
