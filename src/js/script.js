@@ -25,41 +25,46 @@ const fHandleTrombino = function() {
     });
 };
 
+const fCheckEmail = function () {
+    let sEmail = ($emailInput.val() || "").trim(),
+        bIsValid = rEmailValidation.test(sEmail);
+
+    $emailInput.parents(".control-group").toggleClass("error", !bIsValid);
+    return bIsValid;
+};
+
+const fCheckName = function () {
+    let sName = ($nameInput.val() || "").trim(),
+        bIsValid = sName.length > 4;
+
+    $nameInput.parents(".control-group").toggleClass("error", !bIsValid);
+    return bIsValid;
+};
+
+const fCheckComment = function () {
+    let sComment = ($commentTextarea.val() || "").trim(),
+        bIsValid = sComment.length > 10 && sComment.length < 140;
+
+    $commentTextarea.parents(".control-group").toggleClass("error", !bIsValid);
+    return bIsValid;
+};
+
+
 const fHandleFormValidation = function () {
-    let sEmail,
-        bHasErrors = false;
+    let aChecks = [fCheckEmail(), fCheckName(), fCheckComment()],
+        bAllIsOk;
 
-    sEmail = ($emailInput.val() || "").trim();
+        bAllIsOk = aChecks.reduce(function(bPrevious, bCurrent) {
+            return bPrevious && bCurrent;
+        }, true);
 
-    if (!rEmailValidation.test(sEmail)){
-        console.error("Email isn't valid");
-        bHasErrors = true;
-    } else {
-        console.info("Email is valid");
+    if (bAllIsOk) {
+        console.log("Youpi!");
+        return true;
     }
 
-    sName = ($nameInput.val() || "").trim();
-    if (sName.length < 4) {
-        console.error("Name isn't valid");
-        bHasErrors = true;
-    } else {
-        console.info("Name is valid");
-    }
-
-    sComment = ($commentTextarea.val() || "");
-    if (sComment.length < 10 || sComment.length > 140) {
-        console.error("Comment isn't valid");
-        bHasErrors = true;
-    } else {
-        console.info("Comment is valid");
-    }
-
-    if (bHasErrors) {
-        window.alert("Veuillez remplir correctement les champs.");
-        return false;
-    }
-
-    return true;
+    window.alert("Veuillez remplir correctement les champs.");
+    return false;
 };
 
 $(function() {
@@ -75,9 +80,9 @@ $(function() {
     setInterval(fHandleTrombino, 1500);
 
     // 4. form validation
-    $commentForm = $("form");
-    $commentForm.on("submit", fHandleFormValidation);
-    $emailInput = $("#inputEmail");
-    $nameInput = $("#inputName");
-    $commentTextarea = $("#inputComment");
+    ($commentForm = $("form")).on("submit", fHandleFormValidation);
+    ($emailInput = $("#inputEmail")).on("blur", fCheckEmail);
+    ($nameInput = $("#inputName")).on("blur", fCheckName);
+    ($commentTextarea = $("#inputComment")).on("blur", fCheckComment);
+
 });
